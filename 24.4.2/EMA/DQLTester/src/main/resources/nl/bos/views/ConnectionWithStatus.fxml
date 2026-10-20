@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="200.0"
+            xmlns="http://javafx.com/javafx/8.0.121" fx:controller="nl.bos.controllers.ConnectionWithStatus">
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="5.0"
+              style="-fx-border-color: rgba(211,211,211,255); -fx-border-width: 1; -fx-border-style: solid;"
+              BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <BorderPane.margin>
+                <Insets left="5.0" right="5.0" top="5.0"/>
+            </BorderPane.margin>
+            <Button fx:id="btnReadQuery" defaultButton="true" disable="true" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" onAction="#handleReadQuery" text="ReadQuery"/>
+            <Button fx:id="btnFlushCache" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    text="Flush Cache"/>
+            <Button id="btnClearQuery" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    onAction="#handleClearQuery" text="Clear Query"/>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="5.0"
+              style="-fx-border-color: rgba(211,211,211,255); -fx-border-width: 1; -fx-border-style: solid;"
+              BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <BorderPane.margin>
+                <Insets top="5.0"/>
+            </BorderPane.margin>
+            <Label text="Command"/>
+            <HBox alignment="TOP_CENTER" disable="true" spacing="5.0">
+                <VBox.margin>
+                    <Insets bottom="20.0"/>
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <RadioButton mnemonicParsing="false" selected="true" text="ReadQuery">
+                    <toggleGroup>
+                        <!--suppress JavaFxUnresolvedFxIdReference -->
+                        <ToggleGroup fx:id="tgCommand"/>
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton id="rdbCommand" mnemonicParsing="false" text="Query" toggleGroup="$tgCommand"/>
+                <RadioButton mnemonicParsing="false" text="ExecQuery" toggleGroup="$tgCommand"/>
+                <RadioButton mnemonicParsing="false" text="CacheQuery" toggleGroup="$tgCommand"/>
+                <RadioButton mnemonicParsing="false" text="ODBC" toggleGroup="$tgCommand"/>
+            </HBox>
+            <Label text="Timings"/>
+            <HBox alignment="TOP_CENTER" spacing="5.0">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <Label text="Query"/>
+                <TextField id="txtQuery" fx:id="timeQuery" alignment="CENTER" editable="false"/>
+                <Label text="List"/>
+                <TextField id="txtList" fx:id="timeList" alignment="CENTER" editable="false"/>
+                <Label text="Sort"/>
+                <TextField id="txtSort" fx:id="timeSort" alignment="CENTER" editable="false"/>
+            </HBox>
+        </VBox>
+    </center>
+    <right>
+        <VBox alignment="TOP_CENTER" spacing="5.0"
+              style="-fx-border-color: rgba(211,211,211,255); -fx-border-width: 1; -fx-border-style: solid;"
+              BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <BorderPane.margin>
+                <Insets left="5.0" right="5.0" top="5.0"/>
+            </BorderPane.margin>
+            <TextField fx:id="resultCount" alignment="CENTER" editable="false"/>
+            <Button fx:id="btnConnect" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    onAction="#handleConnect" text="Connect"/>
+            <Button fx:id="btnDisconnect" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    onAction="#handleDisconnect" text="Disconnect" visible="false"/>
+            <Button id="btnExit" cancelButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                    onAction="#handleExit" text="Exit"/>
+        </VBox>
+    </right>
+    <bottom>
+        <HBox spacing="5.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <HBox style="-fx-border-color: #D3D3D3;">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/type/t_dm_docbase_config_16.gif"/>
+                </ImageView>
+                <Label fx:id="lblStatus" text="Offline">
+                    <padding>
+                        <Insets left="5.0" right="5.0"/>
+                    </padding>
+                    <tooltip>
+                        <Tooltip fx:id="ttStatus"/>
+                    </tooltip>
+                </Label>
+            </HBox>
+            <HBox style="-fx-border-color: #D3D3D3;">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/type/t_dm_user_16.gif"/>
+                </ImageView>
+                <Label fx:id="lblUsernameOS" text="OS Username">
+                    <padding>
+                        <Insets left="5.0" right="5.0"/>
+                    </padding>
+                    <tooltip>
+                        <Tooltip fx:id="ttOSUsername"/>
+                    </tooltip>
+                </Label>
+            </HBox>
+            <HBox style="-fx-border-color: #D3D3D3;">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/type/t_dm_user_16.gif"/>
+                </ImageView>
+                <Label fx:id="lblUsernameDC" text="DC Username">
+                    <padding>
+                        <Insets left="5.0" right="5.0"/>
+                    </padding>
+                    <tooltip>
+                        <Tooltip fx:id="ttDCUsername"/>
+                    </tooltip>
+                </Label>
+            </HBox>
+            <HBox style="-fx-border-color: #D3D3D3;">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/federations.gif"/>
+                </ImageView>
+                <Label fx:id="lblDomainOS" text="OS Domain">
+                    <padding>
+                        <Insets left="5.0" right="5.0"/>
+                    </padding>
+                    <tooltip>
+                        <Tooltip fx:id="ttDomain"/>
+                    </tooltip>
+                </Label>
+            </HBox>
+            <HBox style="-fx-border-color: #D3D3D3;">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/sortByLock.gif"/>
+                </ImageView>
+                <Label fx:id="lblPrivileges" text="Privileges">
+                    <padding>
+                        <Insets left="5.0" right="5.0"/>
+                    </padding>
+                    <tooltip>
+                        <Tooltip fx:id="ttPrivileges"/>
+                    </tooltip>
+                </Label>
+            </HBox>
+            <HBox style="-fx-border-color: #D3D3D3;">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/type/t_dm_server_config_16.gif"/>
+                </ImageView>
+                <Label fx:id="lblServerVersion" text="Server Version">
+                    <padding>
+                        <Insets left="5.0" right="5.0"/>
+                    </padding>
+                    <tooltip>
+                        <Tooltip fx:id="ttServerVersion"/>
+                    </tooltip>
+                </Label>
+            </HBox>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </HBox>
+    </bottom>
+</BorderPane>

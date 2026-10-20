@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121"
+      fx:controller="nl.bos.controllers.WorkflowEditor">
+    <HBox>
+        <VBox prefWidth="300.0">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <RadioButton fx:id="rbnTodayFlows" mnemonicParsing="false" onAction="#handleTodayFlows"
+                         text="Today's workflows">
+                <toggleGroup>
+                    <ToggleGroup fx:id="filterFlows"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbnAllFlows" mnemonicParsing="false" onAction="#handleAllFlows" selected="true"
+                         text="All workflows" toggleGroup="$filterFlows">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="rbnPausedFlows" mnemonicParsing="false" onAction="#handlePausedFlows"
+                         text="Paused workflows" toggleGroup="$filterFlows">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </RadioButton>
+            <CheckBox fx:id="chbMonitor" mnemonicParsing="false" onAction="#handleMonitor" text="monitor">
+                <VBox.margin>
+                    <Insets top="20.0"/>
+                </VBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="chbOneRowPerWflSeqNo" mnemonicParsing="false" onAction="#handleOneRowPerWflSeqNo"
+                      selected="true" text="oneRowPerWorkflowSeqNo">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </CheckBox>
+            <Label text="Filter by supervisor">
+                <VBox.margin>
+                    <Insets top="20.0"/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="txtSupervisor" onKeyPressed="#handleSupervisor" promptText="supervisor_name"/>
+            <Label text="Filter by Object's Name or ID">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="txtObject" onKeyPressed="#handleObject" promptText="object_name or r_object_id"/>
+        </VBox>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <Tab text="Process variable">
+                <AnchorPane>
+                    <TreeTableView fx:id="ttvVariables" prefHeight="200.0" prefWidth="650.0"/>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Process packages">
+                <AnchorPane>
+                    <TableView fx:id="tvPackages" prefHeight="200.0" prefWidth="650.0"/>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Process attachments">
+                <AnchorPane>
+                    <TableView fx:id="tvAttachments" prefHeight="200.0" prefWidth="650.0"/>
+                </AnchorPane>
+            </Tab>
+            <Tab text="Process ErrorContents">
+                <AnchorPane>
+                    <TextArea fx:id="txaErrorContents" prefHeight="200.0" prefWidth="650.0"/>
+                </AnchorPane>
+            </Tab>
+        </TabPane>
+    </HBox>
+    <TableView fx:id="tvResults" prefHeight="1000.0">
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+    </TableView>
+    <HBox>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+        <TextField fx:id="txtMonitoringState" editable="false" text="Monitoring OFF"/>
+        <TextField fx:id="txtRowCount" editable="false">
+            <HBox.margin>
+                <Insets left="5.0"/>
+            </HBox.margin>
+        </TextField>
+    </HBox>
+</VBox>
